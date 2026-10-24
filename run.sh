@@ -37,5 +37,6 @@ fi
 
 tmux_send_keys "cd $script_dir_m0"
 tmux_send_keys "yes | cp .env.example .env"
-# tmux_send_keys "docker compose --project-name $SESSION_NAME up -d"
-tmux_send_keys "docker compose --project-name $SESSION_NAME up -d pgadmin"
+tmux_send_keys "docker compose --project-name $SESSION_NAME down"
+tmux_send_keys "docker compose --project-name $SESSION_NAME up -d"
+# tmux_send_keys "docker compose --project-name $SESSION_NAME up -d pgadmin"
