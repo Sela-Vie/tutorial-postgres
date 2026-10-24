@@ -9,6 +9,9 @@ _.py
 *.jpg
 *.jpeg
 
+private-*
+private_*
+temp-*
 temp_*
 temp.*
 logs*
