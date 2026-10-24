@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
     ports:
       - "${PG_PORT}:${PG_PORT_DEFAULT}"
+      - "${PG_HTTP_PORT}:${PG_HTTP_PORT_DEFAULT}"
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
