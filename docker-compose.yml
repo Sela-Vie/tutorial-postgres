@@ -1,10 +1,30 @@
 services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ${DB_CONTAINER_NAME:-tut-postgres-db}
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME:-postgres}
+      POSTGRES_USER: ${DB_USER_NAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   adminer:
     image: adminer:latest
     container_name: ${AM_CONTAINER_NAME}
     restart: unless-stopped
     ports:
       - "${AM_PORT}:${AM_PORT_DEFAULT}"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
   cloudbeaver:
     image: dbeaver/cloudbeaver:latest
     container_name: ${CB_CONTAINER_NAME}
@@ -26,4 +46,5 @@ services:
       - PGADMIN_CONFIG_SERVER_MODE=False
 
 volumes:
+  postgres_data:
   cloudbeaver_data:
